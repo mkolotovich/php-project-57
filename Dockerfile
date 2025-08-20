@@ -20,4 +20,4 @@ RUN composer install
 RUN npm i
 RUN npm run build
 
-CMD ["bash", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000"]
+CMD ["bash", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
