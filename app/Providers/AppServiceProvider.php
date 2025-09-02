@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
-        Gate::define('modify-status', function ($user) {
+        Gate::define('modify', function ($user) {
             if ($user->id) {
                 return true;
             }

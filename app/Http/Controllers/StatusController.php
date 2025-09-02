@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Task;
 
 class StatusController extends Controller
 {
@@ -22,7 +23,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        Gate::authorize('modify-status');
+        Gate::authorize('modify');
         $status = new TaskStatus();
         return view('status.create', compact('status'));
     }
@@ -57,7 +58,7 @@ class StatusController extends Controller
      */
     public function edit($id)
     {
-        Gate::authorize('modify-status');
+        Gate::authorize('modify');
         $status = TaskStatus::findOrFail($id);
         return view('status.edit', compact('status'));
     }
@@ -74,19 +75,20 @@ class StatusController extends Controller
 
         $status->fill($data);
         $status->save();
-        return redirect()
-            ->route('task_statuses.index');
+        return redirect()->route('task_statuses.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(TaskStatus $taskStatus)
     {
-        $status = TaskStatus::find($id);
-        if ($status) {
-            $status->delete();
+        $task = Task::where('status_id', $taskStatus->id)->first();
+        if ($task) {
+            flash(__('status.error'))->error();
+            return redirect()->route('task_statuses.index');
         }
+        $taskStatus->delete();
         return redirect()->route('task_statuses.index');
     }
 }

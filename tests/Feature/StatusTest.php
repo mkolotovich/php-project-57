@@ -19,8 +19,7 @@ class StatusTest extends TestCase
     {   
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)
-            ->get('/task_statuses/create');
+        $response = $this->actingAs($user)->get('/task_statuses/create');
 
         $response->assertStatus(200);
     }

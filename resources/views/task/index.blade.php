@@ -1,0 +1,49 @@
+<x-app-layout>
+    <h1 class="mb-5">{{__('task.tasks')}}</h1>
+    <div class="w-full flex items-center">
+        <div>
+        </div>
+        @if (Auth::user())
+            <div class="ml-auto">
+                <a href="{{route('tasks.create')}}" class="btn btn-primary me-1">{{__('task.create')}}</a>
+            </div>
+        @endif
+    </div>
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>{{__('status.id')}}</th>
+                <th>{{__('task.status')}}</th>
+                <th>{{__('status.name')}}</th>
+                <th>{{__('task.author')}}</th>
+                <th>{{__('task.executor')}}</th>
+                <th>{{__('status.createdAt')}}</th>
+                @if (Auth::user())
+                    <th>{{__('status.actions')}}</th>
+                @endif
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($tasks as $task)
+                <tr>
+                    <td>{{$task->id }}</td>
+                    <td>{{$task->status->name }}</td>
+                    <td>
+                        <a href="{{route('tasks.show', $task->id)}}">{{$task->name}}</a>
+                    </td>
+                    <td>{{$task->author->name}}</td>
+                    <td>{{$task->executor === null ? '' : $task->executor->name}}</td>
+                    <td>{{$task->created_at }}</td>
+                    @if (Auth::user())
+                        <td class="d-flex">
+                            <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-primary me-1">{{__('status.edit')}}</a>
+                            @if ($request->user()->id === $task->created_by_id)
+                                <a href="{{route('tasks.destroy', $task->id)}}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">{{__('status.remove')}}</a>
+                            @endif
+                        </td>
+                    @endif
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</x-app-layout>

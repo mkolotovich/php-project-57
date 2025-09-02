@@ -15,10 +15,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div>
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -26,10 +25,14 @@
                     </div>
                 </header>
             @endisset
-            @include('flash::message')
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
+
+            <main class="bg-white dark:bg-gray-900">
+                <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
+                    @include('flash::message')
+                    <div class="grid col-span-full">
+                        {{ $slot }}
+                    </div>
+                </div>
             </main>
         </div>
     </body>

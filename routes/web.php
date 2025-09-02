@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\TaskController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,17 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('task_statuses', [StatusController::class, 'index'])
-  ->name('task_statuses.index'); 
-Route::get('task_statuses/create', [StatusController::class, 'create'])
-  ->name('task_statuses.create');
-Route::post('task_statuses', [StatusController::class, 'store'])
-  ->name('task_statuses.store');
-Route::get('task_statuses/{id}/edit', [StatusController::class, 'edit'])
-  ->name('task_statuses.edit');
-Route::patch('task_statuses/{id}', [StatusController::class, 'update'])
-  ->name('task_statuses.update');
-Route::delete('task_statuses/{id}', [StatusController::class, 'destroy'])
-  ->name('task_statuses.destroy');
+Route::resource('task_statuses', StatusController::class);
+Route::resource('tasks', TaskController::class);
 
 require __DIR__.'/auth.php';

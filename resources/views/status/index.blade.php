@@ -1,9 +1,11 @@
 <x-app-layout>
-    <h1>{{__('status.statuses')}}</h1>
-        @if (Auth::user())
-            <a href="{{route('task_statuses.create')}}" class="btn btn-primary me-1">{{__('status.create')}}</a>
-        @endif
-        <table class="table table-striped">
+    <h1 class="mb-5">{{__('status.statuses')}}</h1>
+        <div>
+            @if (Auth::user())
+                <a href="{{route('task_statuses.create')}}" class="btn btn-primary me-1">{{__('status.create')}}</a>
+            @endif
+        </div>
+        <table class="table table-striped mt-4">
         <thead>
             <tr>
                 <th>{{__('status.id')}}</th>
