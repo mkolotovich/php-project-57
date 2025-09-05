@@ -38,7 +38,7 @@
                         <td class="d-flex">
                             <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-primary me-1">{{__('status.edit')}}</a>
                             @if ($request->user()->id === $task->created_by_id)
-                                <a href="{{route('tasks.destroy', $task->id)}}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">{{__('status.remove')}}</a>
+                                <a href="{{route('tasks.destroy', $task->id)}}" data-confirm="{{__('layout.confirm')}}?" data-method="delete" rel="nofollow">{{__('status.remove')}}</a>
                             @endif
                         </td>
                     @endif

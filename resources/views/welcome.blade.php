@@ -58,10 +58,13 @@
                         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
                             <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                                 <li>
-                                    <a class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0" href="{{route('task_statuses.index')}}">{{__('task.tasks')}}</a>
+                                    <a class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0" href="{{route('tasks.index')}}">{{__('task.tasks')}}</a>
                                 </li>
                                 <li>
                                     <a class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0" href="{{route('task_statuses.index')}}">{{__('status.statuses')}}</a>
+                                </li>
+                                <li>
+                                    <a class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0" href="{{route('labels.index')}}">{{__('label.labels')}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -75,7 +78,7 @@
                     <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">{{__('layout.hello')}}</h1>
                     <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">{{__('layout.description')}}</p>
                     <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                        <a href="https://cloud.laravel.com" target="_blank" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                        <a href="https://hexlet.io" target="_blank" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
                             {{__('layout.more')}}
                         </a>
                     </div>

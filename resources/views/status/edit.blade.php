@@ -4,7 +4,7 @@
         {{ html()->modelForm($status, 'PATCH', route('task_statuses.update', $status))->open() }}
             @include('status.form')
             <div class="mt-2">
-                {{ html()->submit('Обновить')->class('btn btn-primary') }}
+                {{ html()->submit(__('layout.update'))->class('btn btn-primary') }}
             </div>
         {{ html()->closeModelForm() }}
     @endcan

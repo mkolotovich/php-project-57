@@ -4,7 +4,7 @@
         {{ html()->modelForm($status, 'POST', route('task_statuses.store'))->open() }}
             @include('status.form')
             <div class="mt-2">
-                {{ html()->submit('Создать')->class('btn btn-primary') }}
+                {{ html()->submit(__('status.new'))->class('btn btn-primary') }}
             </div>
         {{ html()->closeModelForm() }}
     @endcan

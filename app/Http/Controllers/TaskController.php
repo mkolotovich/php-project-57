@@ -7,6 +7,7 @@ use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Label;
 
 class TaskController extends Controller
 {
@@ -34,7 +35,8 @@ class TaskController extends Controller
         $task = new Task();
         $statuses = TaskStatus::paginate();
         $users = User::paginate();
-        return view('task.create', compact('task', 'statuses', 'users'));
+        $labels = Label::paginate();
+        return view('task.create', compact('task', 'statuses', 'users', 'labels'));
     }
 
     /**
@@ -46,16 +48,17 @@ class TaskController extends Controller
             'name' => 'required|unique:tasks',
             'status_id' => 'required',
             'assigned_to_id' => 'nullable|integer',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'labels' => 'nullable|array',
+            'labels.*' => 'integer',
         ]);
-
+        
         $task = new Task();
         $task->fill($data);
         $task->created_by_id = $request->user()->id;
         $task->save();
-
-        return redirect()
-            ->route('tasks.index');
+        $task->labels()->sync($data['labels'] ?? []);
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -75,7 +78,11 @@ class TaskController extends Controller
         Gate::authorize('modify');
         $statuses = TaskStatus::paginate();
         $users = User::paginate();
-        return view('task.edit', compact('task', 'statuses', 'users'));
+        $labels = Label::paginate();
+        $labelIds = $task->labels->map(function ($label) {
+            return $label->id;
+        });
+        return view('task.edit', compact('task', 'statuses', 'users', 'labels', 'labelIds'));
     }
 
     /**
@@ -83,17 +90,20 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        // dd($request->all());
         $data = $request->validate([
             'name' => "required|unique:tasks,name,{$task->id}",
             'status_id' => 'required',
             'assigned_to_id' => 'nullable|integer',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'labels' => 'nullable|array',
+            'labels.*' => 'integer',
         ]);
 
         $task->fill($data);
         $task->save();
-        return redirect()
-            ->route('tasks.index');
+        $task->labels()->sync($data['labels'] ?? []);
+        return redirect()->route('tasks.index');
     }
 
     /**

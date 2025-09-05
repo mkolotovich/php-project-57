@@ -25,7 +25,7 @@
                     @if (Auth::user())
                         <td class="d-flex">
                             <a href="{{route('task_statuses.edit', $status->id)}}" class="btn btn-primary me-1">{{__('status.edit')}}</a>
-                            <a href="{{route('task_statuses.destroy', $status->id)}}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">{{__('status.remove')}}</a>
+                            <a href="{{route('task_statuses.destroy', $status->id)}}" data-confirm="{{__('layout.confirm')}}?" data-method="delete" rel="nofollow">{{__('status.remove')}}</a>
                         </td>
                     @endif
                 </tr>
