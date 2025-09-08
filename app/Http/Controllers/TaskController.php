@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Label;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class TaskController extends Controller
 {
@@ -16,14 +18,25 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $tasks = Task::all();
-        $tasks->map(function ($task) {
-            $task->status = TaskStatus::find($task->status_id);
-            $task->author = User::find($task->created_by_id);
-            $task->executor = User::find($task->assigned_to_id);
+        $tasks = QueryBuilder::for(Task::class)
+            ->allowedFilters([
+                AllowedFilter::exact('status_id'),
+                AllowedFilter::exact('created_by_id'),
+                AllowedFilter::exact('assigned_to_id'),
+            ])
+            ->get()
+            ->map(function ($task) {
+                $task->status = TaskStatus::find($task->status_id);
+                $task->author = User::find($task->created_by_id);
+                $task->executor = User::find($task->assigned_to_id);
             return $task;
         });
-        return view('task.index', compact('tasks', 'request'));
+        $statusId = $request->query('filter') ? $request->query('filter')['status_id'] : null;
+        $authorId = $request->query('filter') ? $request->query('filter')['created_by_id'] : null;
+        $executorId = $request->query('filter') ? $request->query('filter')['assigned_to_id'] : null;
+        $statuses = TaskStatus::paginate();
+        $users = User::paginate();
+        return view('task.index', compact('tasks', 'request', 'statuses', 'users', 'statusId', 'authorId', 'executorId'));
     }
 
     /**

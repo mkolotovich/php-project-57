@@ -2,6 +2,41 @@
     <h1 class="mb-5">{{__('task.tasks')}}</h1>
     <div class="w-full flex items-center">
         <div>
+            {{ html()->modelForm($tasks, 'GET', route('tasks.index'))->open() }}
+                <div class="flex">
+                    <select class="rounded border-gray-300" name="filter[status_id]" id="filter[status_id]">
+                        <option value>{{__('task.status')}}</option>
+                        @foreach ($statuses as $status)
+                            @if ($status->id == $statusId)
+                                <option value="{{ $status->id }}" selected>{{ $status->name }}</option>
+                            @else
+                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <select class="rounded border-gray-300" name="filter[created_by_id]" id="filter[created_by_id]">
+                        <option value>{{__('task.author')}}</option>
+                        @foreach ($users as $user)
+                            @if ($user->id == $authorId)
+                                <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                            @else
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <select class="rounded border-gray-300" name="filter[assigned_to_id]" id="filter[assigned_to_id]">
+                        <option value>{{__('task.executor')}}</option>
+                        @foreach ($users as $user)
+                            @if ($user->id == $executorId)
+                                <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                            @else
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    {{ html()->submit(__('task.apply'))->class('bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2') }}
+                </div>
+            {{ html()->closeModelForm() }}
         </div>
         @if (Auth::user())
             <div class="ml-auto">
