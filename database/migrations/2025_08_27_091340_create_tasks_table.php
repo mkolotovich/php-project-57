@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable(); 
+            $table->string('description')->nullable();
             $table->foreignId('status_id');
             $table->foreignId('created_by_id');
-            $table->foreignId('assigned_to_id')->nullable(); 
+            $table->foreignId('assigned_to_id')->nullable();
             $table->timestamps();
         });
     }

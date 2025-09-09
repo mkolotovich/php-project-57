@@ -15,8 +15,8 @@ class LabelTest extends TestCase
      */
     use RefreshDatabase;
 
-    public function test_create(): void
-    {   
+    public function testCreate(): void
+    {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('/labels/create');
@@ -24,8 +24,8 @@ class LabelTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_store(): void
-    {   
+    public function testStore(): void
+    {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->post('/labels', ['name' => 'bug']);
 
@@ -34,26 +34,26 @@ class LabelTest extends TestCase
         $this->assertEquals('bug', $label->name);
     }
 
-    public function test_index(): void
-    {   
+    public function testIndex(): void
+    {
         $response = $this->get('/labels');
 
         $response->assertStatus(200);
     }
 
-    public function test_edit(): void
-    {   
+    public function testEdit(): void
+    {
         $user = User::factory()->create();
 
         $request = $this->actingAs($user)->post('/labels', ['name' => 'bug']);
-    
+
         $response = $this->actingAs($user)->get('/labels/1/edit');
 
         $response->assertStatus(200);
     }
 
-    public function test_update(): void
-    {   
+    public function testUpdate(): void
+    {
         $user = User::factory()->create();
         $request = $this->actingAs($user)->post('/labels', ['name' => 'bug']);
         $response = $this->patch('/labels/1', ['name' => 'feature']);
@@ -63,8 +63,8 @@ class LabelTest extends TestCase
         $this->assertEquals('feature', $label->name);
     }
 
-    public function test_destroy(): void
-    {   
+    public function testDestroy(): void
+    {
         $user = User::factory()->create();
         $request = $this->actingAs($user)->post('/labels', ['name' => 'bug']);
         $response = $this->delete('/labels/1');

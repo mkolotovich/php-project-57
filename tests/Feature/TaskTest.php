@@ -15,8 +15,8 @@ class TaskTest extends TestCase
      */
     use RefreshDatabase;
 
-    public function test_create(): void
-    {   
+    public function testCreate(): void
+    {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('/tasks/create');
@@ -24,19 +24,19 @@ class TaskTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_show(): void
-    {   
+    public function testShow(): void
+    {
         $user = User::factory()->create();
 
         $request = $this->actingAs($user)->post('/tasks', ['name' => 'new', 'status_id' => 1, 'created_by_id' => 1]);
-    
+
         $response = $this->actingAs($user)->get('/tasks/1/edit');
 
         $response->assertStatus(200);
     }
 
-    public function test_store(): void
-    {   
+    public function testStore(): void
+    {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->post('/tasks', ['name' => 'new', 'status_id' => 1, 'created_by_id' => 1]);
 
@@ -45,26 +45,26 @@ class TaskTest extends TestCase
         $this->assertEquals('new', $task->name);
     }
 
-    public function test_index(): void
-    {   
+    public function testIndex(): void
+    {
         $response = $this->get('/tasks');
 
         $response->assertStatus(200);
     }
 
-    public function test_edit(): void
-    {   
+    public function testEdit(): void
+    {
         $user = User::factory()->create();
 
         $request = $this->actingAs($user)->post('/tasks', ['name' => 'new', 'status_id' => 1, 'created_by_id' => 1]);
-    
+
         $response = $this->actingAs($user)->get('/tasks/1/edit');
 
         $response->assertStatus(200);
     }
 
-    public function test_update(): void
-    {   
+    public function testUpdate(): void
+    {
         $user = User::factory()->create();
         $request = $this->actingAs($user)->post('/tasks', ['name' => 'new', 'status_id' => 1, 'created_by_id' => 1]);
         $response = $this->patch('/tasks/1', ['name' => 'in work', 'status_id' => 1, 'created_by_id' => 1]);
@@ -74,8 +74,8 @@ class TaskTest extends TestCase
         $this->assertEquals('in work', $task->name);
     }
 
-    public function test_destroy(): void
-    {   
+    public function testDestroy(): void
+    {
         $user = User::factory()->create();
         $request = $this->actingAs($user)->post('/tasks', ['name' => 'new', 'status_id' => 1, 'created_by_id' => 1]);
         $response = $this->delete('/tasks/1');

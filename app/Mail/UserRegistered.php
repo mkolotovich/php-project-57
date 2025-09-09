@@ -13,7 +13,8 @@ use Illuminate\Mail\Mailables\Address;
 
 class UserRegistered extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new message instance.
@@ -56,5 +57,4 @@ class UserRegistered extends Mailable
     {
         return [];
     }
-
 }

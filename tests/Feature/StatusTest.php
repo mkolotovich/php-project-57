@@ -15,8 +15,8 @@ class StatusTest extends TestCase
      */
     use RefreshDatabase;
 
-    public function test_create(): void
-    {   
+    public function testCreate(): void
+    {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('/task_statuses/create');
@@ -24,8 +24,8 @@ class StatusTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_store(): void
-    {   
+    public function testStore(): void
+    {
         $response = $this->post('/task_statuses', ['name' => 'in work']);
 
         $response->assertStatus(302);
@@ -33,8 +33,8 @@ class StatusTest extends TestCase
         $this->assertEquals('in work', $status->name);
     }
 
-    public function test_index(): void
-    {   
+    public function testIndex(): void
+    {
         $this->seed();
         $response = $this->get('/task_statuses');
 
@@ -43,8 +43,8 @@ class StatusTest extends TestCase
         $this->assertEquals('новый', $status->name);
     }
 
-    public function test_edit(): void
-    {   
+    public function testEdit(): void
+    {
         $this->seed();
         $user = User::factory()->create();
 
@@ -54,8 +54,8 @@ class StatusTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_update(): void
-    {   
+    public function testUpdate(): void
+    {
         $this->seed();
         $response = $this->patch('/task_statuses/1', ['name' => 'in work']);
 
@@ -64,8 +64,8 @@ class StatusTest extends TestCase
         $this->assertEquals('in work', $status->name);
     }
 
-    public function test_destroy(): void
-    {   
+    public function testDestroy(): void
+    {
         $this->seed();
         $response = $this->delete('/task_statuses/1');
 

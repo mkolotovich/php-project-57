@@ -29,14 +29,17 @@ class TaskController extends Controller
                 $task->status = TaskStatus::find($task->status_id);
                 $task->author = User::find($task->created_by_id);
                 $task->executor = User::find($task->assigned_to_id);
-            return $task;
-        });
+                return $task;
+            });
         $statusId = $request->query('filter') ? $request->query('filter')['status_id'] : null;
         $authorId = $request->query('filter') ? $request->query('filter')['created_by_id'] : null;
         $executorId = $request->query('filter') ? $request->query('filter')['assigned_to_id'] : null;
         $statuses = TaskStatus::paginate();
         $users = User::paginate();
-        return view('task.index', compact('tasks', 'request', 'statuses', 'users', 'statusId', 'authorId', 'executorId'));
+        return view(
+            'task.index',
+            compact('tasks', 'request', 'statuses', 'users', 'statusId', 'authorId', 'executorId')
+        );
     }
 
     /**
@@ -65,7 +68,7 @@ class TaskController extends Controller
             'labels' => 'nullable|array',
             'labels.*' => 'integer',
         ]);
-        
+
         $task = new Task();
         $task->fill($data);
         $task->created_by_id = $request->user()->id;
