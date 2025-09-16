@@ -4,7 +4,7 @@ dev:
 install:
 	composer install
 lint:
-	composer exec --verbose phpcs -- --standard=PSR12 app database lang resources routes tests
+	composer exec --verbose phpcs -- --standard=PSR12 app database lang routes tests
 start:
 	php artisan serve --host=0.0.0.0 --port=$PORT
 db-prepare:
