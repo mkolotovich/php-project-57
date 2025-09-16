@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b47fc12f636b2ae7df2773395442ee9a",
+    "content-hash": "0c13761bbec0973f0fdcc7a1fc6d2ba2",
     "packages": [
         {
             "name": "brick/math",
@@ -3562,16 +3562,16 @@
         },
         {
             "name": "sentry/sentry-laravel",
-            "version": "4.15.3",
+            "version": "4.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "c3f71a83e8b3a1451e811199d145e864519cecc1"
+                "reference": "b33b2e487b02db02d92988228f142d7fa2be2bfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/c3f71a83e8b3a1451e811199d145e864519cecc1",
-                "reference": "c3f71a83e8b3a1451e811199d145e864519cecc1",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/b33b2e487b02db02d92988228f142d7fa2be2bfa",
+                "reference": "b33b2e487b02db02d92988228f142d7fa2be2bfa",
                 "shasum": ""
             },
             "require": {
@@ -3635,7 +3635,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-laravel/issues",
-                "source": "https://github.com/getsentry/sentry-laravel/tree/4.15.3"
+                "source": "https://github.com/getsentry/sentry-laravel/tree/4.16.0"
             },
             "funding": [
                 {
@@ -3647,7 +3647,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-09-04T14:37:41+00:00"
+            "time": "2025-09-10T16:38:18+00:00"
         },
         {
             "name": "spatie/laravel-html",
@@ -7014,6 +7014,80 @@
             "time": "2025-07-18T18:49:59+00:00"
         },
         {
+            "name": "laravel/dusk",
+            "version": "v8.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/dusk.git",
+                "reference": "077d448cd993a08f97bfccf0ea3d6478b3908f7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/dusk/zipball/077d448cd993a08f97bfccf0ea3d6478b3908f7e",
+                "reference": "077d448cd993a08f97bfccf0ea3d6478b3908f7e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-zip": "*",
+                "guzzlehttp/guzzle": "^7.5",
+                "illuminate/console": "^10.0|^11.0|^12.0",
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "php": "^8.1",
+                "php-webdriver/webdriver": "^1.15.2",
+                "symfony/console": "^6.2|^7.0",
+                "symfony/finder": "^6.2|^7.0",
+                "symfony/process": "^6.2|^7.0",
+                "vlucas/phpdotenv": "^5.2"
+            },
+            "require-dev": {
+                "laravel/framework": "^10.0|^11.0|^12.0",
+                "mockery/mockery": "^1.6",
+                "orchestra/testbench-core": "^8.19|^9.0|^10.0",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^10.1|^11.0|^12.0.1",
+                "psy/psysh": "^0.11.12|^0.12",
+                "symfony/yaml": "^6.2|^7.0"
+            },
+            "suggest": {
+                "ext-pcntl": "Used to gracefully terminate Dusk when tests are running."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Dusk\\DuskServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Dusk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel Dusk provides simple end-to-end testing and browser automation.",
+            "keywords": [
+                "laravel",
+                "testing",
+                "webdriver"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/dusk/issues",
+                "source": "https://github.com/laravel/dusk/tree/v8.3.3"
+            },
+            "time": "2025-06-10T13:59:27+00:00"
+        },
+        {
             "name": "laravel/pail",
             "version": "v1.2.3",
             "source": {
@@ -7585,6 +7659,72 @@
             "time": "2022-02-21T01:04:05+00:00"
         },
         {
+            "name": "php-webdriver/webdriver",
+            "version": "1.15.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-webdriver/php-webdriver.git",
+                "reference": "998e499b786805568deaf8cbf06f4044f05d91bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-webdriver/php-webdriver/zipball/998e499b786805568deaf8cbf06f4044f05d91bf",
+                "reference": "998e499b786805568deaf8cbf06f4044f05d91bf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-zip": "*",
+                "php": "^7.3 || ^8.0",
+                "symfony/polyfill-mbstring": "^1.12",
+                "symfony/process": "^5.0 || ^6.0 || ^7.0"
+            },
+            "replace": {
+                "facebook/webdriver": "*"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.20.0",
+                "ondram/ci-detector": "^4.0",
+                "php-coveralls/php-coveralls": "^2.4",
+                "php-mock/php-mock-phpunit": "^2.0",
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpunit/phpunit": "^9.3",
+                "squizlabs/php_codesniffer": "^3.5",
+                "symfony/var-dumper": "^5.0 || ^6.0 || ^7.0"
+            },
+            "suggest": {
+                "ext-SimpleXML": "For Firefox profile creation"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/Exception/TimeoutException.php"
+                ],
+                "psr-4": {
+                    "Facebook\\WebDriver\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A PHP client for Selenium WebDriver. Previously facebook/webdriver.",
+            "homepage": "https://github.com/php-webdriver/php-webdriver",
+            "keywords": [
+                "Chromedriver",
+                "geckodriver",
+                "php",
+                "selenium",
+                "webdriver"
+            ],
+            "support": {
+                "issues": "https://github.com/php-webdriver/php-webdriver/issues",
+                "source": "https://github.com/php-webdriver/php-webdriver/tree/1.15.2"
+            },
+            "time": "2024-11-21T15:12:59+00:00"
+        },
+        {
             "name": "phpunit/php-code-coverage",
             "version": "11.0.11",
             "source": {
@@ -7921,16 +8061,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.36",
+            "version": "11.5.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "264a87c7ef68b1ab9af7172357740dc266df5957"
+                "reference": "ad5597f79d8489d2870073ac0bc0dd0ad1fa9931"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/264a87c7ef68b1ab9af7172357740dc266df5957",
-                "reference": "264a87c7ef68b1ab9af7172357740dc266df5957",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ad5597f79d8489d2870073ac0bc0dd0ad1fa9931",
+                "reference": "ad5597f79d8489d2870073ac0bc0dd0ad1fa9931",
                 "shasum": ""
             },
             "require": {
@@ -8002,7 +8142,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.36"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.39"
             },
             "funding": [
                 {
@@ -8026,7 +8166,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-09-03T06:24:17+00:00"
+            "time": "2025-09-14T06:20:41+00:00"
         },
         {
             "name": "sebastian/cli-parser",
