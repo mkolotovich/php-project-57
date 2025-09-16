@@ -68,7 +68,7 @@
                     </td>
                     <td>{{$task->author->name}}</td>
                     <td>{{$task->executor === null ? '' : $task->executor->name}}</td>
-                    <td>{{$task->created_at }}</td>
+                    <td>{{$task->created_at->settings(['toStringFormat' => 'd.m.Y'])}}</td>
                     @if (Auth::user())
                         <td class="d-flex">
                             <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-primary me-1">{{__('status.edit')}}</a>

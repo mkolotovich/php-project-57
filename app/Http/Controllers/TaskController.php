@@ -74,6 +74,7 @@ class TaskController extends Controller
         $task->created_by_id = $request->user()->id;
         $task->save();
         $task->labels()->sync($data['labels'] ?? []);
+        flash(__('task.created'))->success();
         return redirect()->route('tasks.index');
     }
 
@@ -106,7 +107,6 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        // dd($request->all());
         $data = $request->validate([
             'name' => "required|unique:tasks,name,{$task->id}",
             'status_id' => 'required',
@@ -119,6 +119,7 @@ class TaskController extends Controller
         $task->fill($data);
         $task->save();
         $task->labels()->sync($data['labels'] ?? []);
+        flash(__('task.editSuccess'))->success();
         return redirect()->route('tasks.index');
     }
 
@@ -129,6 +130,7 @@ class TaskController extends Controller
     {
         if ($request->user()->id === $task->created_by_id) {
             $task->delete();
+            flash(__('task.remove'))->success();
             return redirect()->route('tasks.index');
         }
     }

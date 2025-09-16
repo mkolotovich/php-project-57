@@ -9,7 +9,7 @@ return [
     'forgotYourPassword' => 'Забыли пароль?',
     'logIn' => 'Войти',
     'name' => 'Имя',
-    'confirm' => 'Подтверждение',
+    'confirmPass' => 'Подтверждение',
     'alreadyRegistered' => 'Уже зарегистрированы?',
     'register' => 'Зарегистрировать',
     'hello' => 'Привет от Хекслета!',

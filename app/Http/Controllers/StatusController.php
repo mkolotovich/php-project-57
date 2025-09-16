@@ -6,6 +6,7 @@ use App\Models\TaskStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Task;
+use Illuminate\Support\Facades\Validator;
 
 class StatusController extends Controller
 {
@@ -33,16 +34,17 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validator = Validator::make($request->input(), [
             'name' => 'required|unique:task_statuses',
-        ]);
+        ], $messages = ['unique' => 'Статус с таким именем уже существует']);
+
+        $data = $validator->validated();
 
         $status = new TaskStatus();
         $status->fill($data);
         $status->save();
-
-        return redirect()
-            ->route('task_statuses.index');
+        flash(__('status.created'))->success();
+        return redirect()->route('task_statuses.index');
     }
 
     /**
@@ -75,6 +77,7 @@ class StatusController extends Controller
 
         $status->fill($data);
         $status->save();
+        flash(__('status.editSuccess'))->success();
         return redirect()->route('task_statuses.index');
     }
 
@@ -89,6 +92,7 @@ class StatusController extends Controller
             return redirect()->route('task_statuses.index');
         }
         $taskStatus->delete();
+        flash(__('status.removed'))->success();
         return redirect()->route('task_statuses.index');
     }
 }

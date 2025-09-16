@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Label;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class LabelController extends Controller
 {
@@ -32,15 +33,17 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $validator = Validator::make($request->input(), [
             'name' => 'required|unique:labels',
             'description' => 'nullable|string'
-        ]);
+        ], $messages = ['unique' => 'Метка с таким именем уже существует']);
+
+        $data = $validator->validated();
 
         $label = new Label();
         $label->fill($data);
         $label->save();
-
+        flash(__('label.created'))->success();
         return redirect()->route('labels.index');
     }
 
@@ -73,6 +76,7 @@ class LabelController extends Controller
 
         $label->fill($data);
         $label->save();
+        flash(__('label.editSuccess'))->success();
         return redirect()->route('labels.index');
     }
 
@@ -87,6 +91,7 @@ class LabelController extends Controller
             return redirect()->route('labels.index');
         }
         $label->delete();
+        flash(__('label.remove'))->success();
         return redirect()->route('labels.index');
     }
 }
