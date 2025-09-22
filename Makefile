@@ -3,8 +3,11 @@ dev:
 	npm run build
 install:
 	composer install
+	php artisan migrate
+	npm ci
+	npm run build
 lint:
-	composer exec --verbose phpcs -- --standard=PSR12 app database lang routes tests
+	composer phpcs
 start:
 	php artisan serve --host=0.0.0.0 --port=$PORT
 db-prepare:

@@ -33,9 +33,7 @@ jobs:
         run: make lint
       - name: Run tests
         # Run tests
-        run: | 
-          npm run build
-          make tests
+        run: make test
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
