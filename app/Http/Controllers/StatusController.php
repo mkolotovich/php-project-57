@@ -86,7 +86,7 @@ class StatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        $task = Task::where('status_id', $taskStatus->id)->first();
+        $task = Task::where('status_id', $taskStatus->id)->exists();
         if ($task) {
             flash(__('status.error'))->error();
             return redirect()->route('task_statuses.index');

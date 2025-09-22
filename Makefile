@@ -11,6 +11,7 @@ install:
 	npm run build
 lint:
 	composer phpcs
+	vendor/bin/phpstan --memory-limit=2G --ansi analyse
 start:
 	php artisan serve --host=0.0.0.0 --port=$PORT
 db-prepare:

@@ -24,16 +24,10 @@ class TaskController extends Controller
                 AllowedFilter::exact('created_by_id'),
                 AllowedFilter::exact('assigned_to_id'),
             ])
-            ->get()
-            ->map(function ($task) {
-                $task->status = TaskStatus::find($task->status_id);
-                $task->author = User::find($task->created_by_id);
-                $task->executor = User::find($task->assigned_to_id);
-                return $task;
-            });
-        $statusId = $request->query('filter') ? $request->query('filter')['status_id'] : null;
-        $authorId = $request->query('filter') ? $request->query('filter')['created_by_id'] : null;
-        $executorId = $request->query('filter') ? $request->query('filter')['assigned_to_id'] : null;
+            ->get();
+        $statusId = $request->input('filter.status_id');
+        $authorId = $request->input('filter.created_by_id');
+        $executorId = $request->input('filter.assigned_to_id');
         $statuses = TaskStatus::paginate();
         $users = User::paginate();
         return view(
@@ -83,7 +77,6 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $task->status = TaskStatus::find($task->status_id);
         return view('task.show', compact('task'));
     }
 
@@ -96,9 +89,7 @@ class TaskController extends Controller
         $statuses = TaskStatus::paginate();
         $users = User::paginate();
         $labels = Label::paginate();
-        $labelIds = $task->labels->map(function ($label) {
-            return $label->id;
-        });
+        $labelIds = $task->labels->pluck('id')->toArray();
         return view('task.edit', compact('task', 'statuses', 'users', 'labels', 'labelIds'));
     }
 

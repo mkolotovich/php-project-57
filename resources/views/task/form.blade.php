@@ -51,7 +51,7 @@
     <select class="rounded border-gray-300 w-1/3" name="labels[]" id="labels[]" multiple>
         @foreach ($labels as $label)
             @if (isset($labelIds))
-                @if ($labelIds->contains($label->id))
+                @if (in_array($label->id, $labelIds))
                     <option value="{{ $label->id }}" selected>{{ $label->name }}</option>
                 @else
                     <option value="{{ $label->id }}">{{ $label->name }}</option>
