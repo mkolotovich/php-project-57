@@ -3,6 +3,7 @@ dev:
 	npm run build
 install:
 	composer install
+	touch database/database.sqlite
 	php artisan migrate
 	npm ci
 	npm run build
