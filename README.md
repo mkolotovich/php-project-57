@@ -3,6 +3,7 @@
 [![Actions Status](https://github.com/mkolotovich/php-project-57/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/mkolotovich/php-project-57/actions)
 [![PHP CI](https://github.com/mkolotovich/php-project-57/actions/workflows/build.yml/badge.svg)](https://github.com/mkolotovich/php-project-57/actions/workflows/build.yml)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mkolotovich_php-project-57&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=mkolotovich_php-project-57)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=mkolotovich_php-project-57&metric=coverage)](https://sonarcloud.io/summary/new_code?id=mkolotovich_php-project-57)
 
 ## Описание
 Task Manager – система управления задачами, подобная http://www.redmine.org/. Она позволяет ставить задачи, назначать исполнителей и менять их статусы. Для работы с системой требуется регистрация и аутентификация.
