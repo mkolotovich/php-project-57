@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
         DB::table('task_statuses')->insert(['name' => 'на тестировании', 'created_at' => '2025-09-02']);
         DB::table('task_statuses')->insert(['name' => 'завершен', 'created_at' => '2025-09-02']);
         DB::table('labels')->insert(['name' => 'ошибка', 'description' => 'Какая-то ошибка в коде или проблема с функциональностью','created_at' => '2025-09-02']);
-        DB::table('tasks')->insert(['name' => 'Исправить ошибку в какой-нибудь строке', 'status_id' => 1, 'created_by_id' => 1, 'assigned_to_id' => 2,'created_at' => '2025-09-02']);
+        DB::table('tasks')->insert(['name' => 'Исправить ошибку в какой-нибудь строке', 'status_id' => 2, 'created_by_id' => 1, 'assigned_to_id' => 2,'created_at' => '2025-09-02']);
     }
 }
