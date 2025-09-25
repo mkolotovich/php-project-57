@@ -2,7 +2,7 @@ dev:
 	php artisan serve
 	npm run build
 install:
-	composer install
+	composer update --no-ansi --no-interaction --no-progress
 	cp -n .env.example .env
 	php artisan key:gen --ansi
 	touch database/database.sqlite
@@ -19,3 +19,5 @@ db-prepare:
 build: install db-prepare
 test:
 	php artisan test
+test-coverage:
+	XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage.xml
