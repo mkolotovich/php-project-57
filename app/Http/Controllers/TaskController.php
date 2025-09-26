@@ -39,9 +39,9 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Task $task)
     {
-        Gate::authorize('modify');
+        Gate::authorize('create', $task);
         $task = new Task();
         $statuses = TaskStatus::paginate();
         $users = User::paginate();
@@ -85,7 +85,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        Gate::authorize('modify');
+        Gate::authorize('update', $task);
         $statuses = TaskStatus::paginate();
         $users = User::paginate();
         $labels = Label::paginate();
@@ -119,10 +119,9 @@ class TaskController extends Controller
      */
     public function destroy(Request $request, Task $task)
     {
-        if ($request->user()->id === $task->created_by_id) {
-            $task->delete();
-            flash(__('task.remove'))->success();
-            return redirect()->route('tasks.index');
-        }
+        Gate::authorize('delete', $task);
+        $task->delete();
+        flash(__('task.remove'))->success();
+        return redirect()->route('tasks.index');
     }
 }

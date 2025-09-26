@@ -22,9 +22,9 @@ class StatusController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(TaskStatus $taskStatus)
     {
-        Gate::authorize('modify');
+        Gate::authorize('create', $taskStatus);
         $status = new TaskStatus();
         return view('status.create', compact('status'));
     }
@@ -60,8 +60,8 @@ class StatusController extends Controller
      */
     public function edit($id)
     {
-        Gate::authorize('modify');
         $status = TaskStatus::findOrFail($id);
+        Gate::authorize('update', $status);
         return view('status.edit', compact('status'));
     }
 
@@ -86,8 +86,8 @@ class StatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        $task = Task::where('status_id', $taskStatus->id)->exists();
-        if ($task) {
+        $taskExists = Task::where('status_id', $taskStatus->id)->exists();
+        if ($taskExists) {
             flash(__('status.error'))->error();
             return redirect()->route('task_statuses.index');
         }

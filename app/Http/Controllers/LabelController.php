@@ -21,9 +21,9 @@ class LabelController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Label $label)
     {
-        Gate::authorize('modify');
+        Gate::authorize('create', $label);
         $label = new Label();
         return view('label.create', compact('label'));
     }
@@ -60,7 +60,7 @@ class LabelController extends Controller
      */
     public function edit(Label $label)
     {
-        Gate::authorize('modify');
+        Gate::authorize('update', $label);
         return view('label.edit', compact('label'));
     }
 
