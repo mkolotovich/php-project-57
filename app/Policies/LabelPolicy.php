@@ -29,7 +29,7 @@ class LabelPolicy
      */
     public function create(User $user): bool
     {
-        return $user ? true : false;
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class LabelPolicy
      */
     public function update(User $user, Label $label): bool
     {
-        return $user ? true : false;
+        return true;
     }
 
     /**

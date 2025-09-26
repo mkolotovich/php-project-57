@@ -29,7 +29,7 @@ class TaskStatusPolicy
      */
     public function create(User $user): bool
     {
-        return $user ? true : false;
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class TaskStatusPolicy
      */
     public function update(User $user, TaskStatus $taskStatus): bool
     {
-        return $user ? true : false;
+        return true;
     }
 
     /**
