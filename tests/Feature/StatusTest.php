@@ -19,25 +19,23 @@ class StatusTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/task_statuses/create');
-
+        $response = $this->actingAs($user)->get(route('task_statuses.create'));
         $response->assertStatus(200);
     }
 
     public function testStore(): void
     {
-        $response = $this->post('/task_statuses', ['name' => 'in work']);
-
+        $newStatus = 'in work';
+        $response = $this->post(route('task_statuses.store'), ['name' => $newStatus]);
+        $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
-        $status = TaskStatus::where('name', 'in work')->first();
-        $this->assertEquals('in work', $status->name);
+        $this->assertDatabaseHas('task_statuses', ['name' => $newStatus,]);
     }
 
     public function testIndex(): void
     {
         $this->seed();
-        $response = $this->get('/task_statuses');
-
+        $response = $this->get(route('task_statuses.index'));
         $response->assertStatus(200);
         $status = TaskStatus::where('name', 'новый')->first();
         $this->assertEquals('новый', $status->name);
@@ -47,30 +45,29 @@ class StatusTest extends TestCase
     {
         $this->seed();
         $user = User::factory()->create();
-
-        $response = $this->actingAs($user)
-            ->get('/task_statuses/1/edit');
-
+        $status = TaskStatus::paginate()->first();
+        $response = $this->actingAs($user)->get(route('task_statuses.edit', $status->id));
         $response->assertStatus(200);
     }
 
     public function testUpdate(): void
     {
+        $updatedStatus = 'in work';
         $this->seed();
-        $response = $this->patch('/task_statuses/1', ['name' => 'in work']);
-
+        $status = TaskStatus::paginate()->first();
+        $response = $this->patch(route('task_statuses.update', $status), ['name' => $updatedStatus]);
+        $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
-        $status = TaskStatus::where('name', 'in work')->first();
-        $this->assertEquals('in work', $status->name);
+        $this->assertDatabaseHas('task_statuses', ['name' => $updatedStatus,]);
     }
 
     public function testDestroy(): void
     {
         $this->seed();
-        $response = $this->delete('/task_statuses/1');
-
+        $status = TaskStatus::paginate()->first();
+        $response = $this->delete(route('task_statuses.destroy', $status->id));
         $response->assertStatus(302);
-        $status = TaskStatus::where('id', 1)->first();
-        $this->assertNull($status);
+        $removedStatus = TaskStatus::where('id', 1)->first();
+        $this->assertNull($removedStatus);
     }
 }

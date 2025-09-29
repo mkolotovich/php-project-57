@@ -19,58 +19,58 @@ class LabelTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/labels/create');
+        $response = $this->actingAs($user)->get(route('labels.create'));
 
         $response->assertStatus(200);
     }
 
     public function testStore(): void
     {
+        $newLabel = 'bug';
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->post('/labels', ['name' => 'bug']);
-
+        $response = $this->actingAs($user)->post(route('labels.store'), ['name' => $newLabel]);
+        $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
-        $label = Label::where('name', 'bug')->first();
-        $this->assertEquals('bug', $label->name);
+        $this->assertDatabaseHas('labels', ['name' => $newLabel,]);
     }
 
     public function testIndex(): void
     {
-        $response = $this->get('/labels');
-
+        $response = $this->get(route('labels.index'));
         $response->assertStatus(200);
     }
 
     public function testEdit(): void
     {
         $user = User::factory()->create();
-
-        $request = $this->actingAs($user)->post('/labels', ['name' => 'bug']);
-
-        $response = $this->actingAs($user)->get('/labels/1/edit');
-
+        $request = $this->actingAs($user)->post(route('labels.store'), ['name' => 'bug']);
+        $request->assertSessionHasNoErrors();
+        $label = Label::paginate()->first();
+        $response = $this->actingAs($user)->get(route('labels.edit', $label->id));
         $response->assertStatus(200);
     }
 
     public function testUpdate(): void
     {
+        $updatedLabel = 'feature';
         $user = User::factory()->create();
-        $request = $this->actingAs($user)->post('/labels', ['name' => 'bug']);
-        $response = $this->patch('/labels/1', ['name' => 'feature']);
-
+        $request = $this->actingAs($user)->post(route('labels.store'), ['name' => 'bug']);
+        $request->assertSessionHasNoErrors();
+        $label = Label::paginate()->first();
+        $response = $this->patch(route('labels.update', $label), ['name' => $updatedLabel]);
+        $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
-        $label = Label::where('name', 'feature')->first();
-        $this->assertEquals('feature', $label->name);
+        $this->assertDatabaseHas('labels', ['name' => $updatedLabel,]);
     }
 
     public function testDestroy(): void
     {
         $user = User::factory()->create();
-        $request = $this->actingAs($user)->post('/labels', ['name' => 'bug']);
-        $response = $this->delete('/labels/1');
-
+        $request = $this->actingAs($user)->post(route('labels.store'), ['name' => 'bug']);
+        $label = Label::paginate()->first();
+        $response = $this->delete(route('labels.destroy', $label->id));
         $response->assertStatus(302);
-        $task = Label::where('id', 1)->first();
-        $this->assertNull($task);
+        $removedLabel = Label::where('id', 1)->first();
+        $this->assertNull($removedLabel);
     }
 }

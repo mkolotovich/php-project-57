@@ -85,8 +85,8 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        $task = $label->tasks;
-        if (count($task) > 0) {
+        $tasks = $label->tasks;
+        if (count($tasks) > 0) {
             flash(__('label.error'))->error();
             return redirect()->route('labels.index');
         }

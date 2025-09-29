@@ -69,12 +69,12 @@
                     <td>{{$task->author->name}}</td>
                     <td>{{$task->executor === null ? '' : $task->executor->name}}</td>
                     <td>{{$task->created_at->settings(['toStringFormat' => 'd.m.Y'])}}</td>
-                    @if (Auth::user())
+                    @if (Auth::user()->can('update', $task))
                         <td class="d-flex">
                             <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-primary me-1">{{__('status.edit')}}</a>
-                            @if ($request->user()->id === $task->created_by_id)
+                            @can('delete', $task)
                                 <a href="{{route('tasks.destroy', $task->id)}}" data-confirm="{{__('layout.confirm')}}?" data-method="delete" rel="nofollow">{{__('status.remove')}}</a>
-                            @endif
+                            @endcan
                         </td>
                     @endif
                 </tr>
