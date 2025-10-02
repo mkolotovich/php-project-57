@@ -45,7 +45,7 @@ class StatusTest extends TestCase
     {
         $this->seed();
         $user = User::factory()->create();
-        $status = TaskStatus::paginate()->first();
+        $status = TaskStatus::first();
         $response = $this->actingAs($user)->get(route('task_statuses.edit', $status->id));
         $response->assertStatus(200);
     }
@@ -54,7 +54,7 @@ class StatusTest extends TestCase
     {
         $updatedStatus = 'in work';
         $this->seed();
-        $status = TaskStatus::paginate()->first();
+        $status = TaskStatus::first();
         $response = $this->patch(route('task_statuses.update', $status), ['name' => $updatedStatus]);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
@@ -64,10 +64,11 @@ class StatusTest extends TestCase
     public function testDestroy(): void
     {
         $this->seed();
-        $status = TaskStatus::paginate()->first();
-        $response = $this->delete(route('task_statuses.destroy', $status->id));
+        $user = User::factory()->create();
+        $status = TaskStatus::first();
+        $response = $this->actingAs($user)->delete(route('task_statuses.destroy', $status->id));
         $response->assertStatus(302);
-        $removedStatus = TaskStatus::where('id', 1)->first();
+        $removedStatus = TaskStatus::where('id', $status->id)->first();
         $this->assertNull($removedStatus);
     }
 }

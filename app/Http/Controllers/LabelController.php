@@ -36,7 +36,7 @@ class LabelController extends Controller
         $validator = Validator::make($request->input(), [
             'name' => 'required|unique:labels',
             'description' => 'nullable|string'
-        ], $messages = ['unique' => 'Метка с таким именем уже существует']);
+        ], $messages = ['unique' => __('label.createError')]);
 
         $data = $validator->validated();
 
@@ -45,14 +45,6 @@ class LabelController extends Controller
         $label->save();
         flash(__('label.created'))->success();
         return redirect()->route('labels.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Label $label)
-    {
-        //
     }
 
     /**
@@ -85,6 +77,7 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
+        Gate::authorize('delete', $label);
         $tasks = $label->tasks;
         if (count($tasks) > 0) {
             flash(__('label.error'))->error();

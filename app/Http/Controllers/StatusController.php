@@ -15,7 +15,7 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $statuses = TaskStatus::paginate();
+        $statuses = TaskStatus::all();
         return view('status.index', compact('statuses'));
     }
 
@@ -36,7 +36,7 @@ class StatusController extends Controller
     {
         $validator = Validator::make($request->input(), [
             'name' => 'required|unique:task_statuses',
-        ], $messages = ['unique' => 'Статус с таким именем уже существует']);
+        ], $messages = ['unique' => __('status.createError')]);
 
         $data = $validator->validated();
 
@@ -48,35 +48,25 @@ class StatusController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(TaskStatus $taskStatus)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(TaskStatus $taskStatus)
     {
-        $status = TaskStatus::findOrFail($id);
-        Gate::authorize('update', $status);
-        return view('status.edit', compact('status'));
+        Gate::authorize('update', $taskStatus);
+        return view('status.edit', compact('taskStatus'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, TaskStatus $taskStatus)
     {
-        $status = TaskStatus::findOrFail($id);
         $data = $request->validate([
-            'name' => "required|unique:task_statuses,name,{$status->id}",
+            'name' => "required|unique:task_statuses,name,{$taskStatus->id}",
         ]);
 
-        $status->fill($data);
-        $status->save();
+        $taskStatus->fill($data);
+        $taskStatus->save();
         flash(__('status.editSuccess'))->success();
         return redirect()->route('task_statuses.index');
     }
@@ -86,6 +76,7 @@ class StatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
+        Gate::authorize('delete', $taskStatus);
         $taskExists = Task::where('status_id', $taskStatus->id)->exists();
         if ($taskExists) {
             flash(__('status.error'))->error();

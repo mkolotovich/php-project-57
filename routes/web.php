@@ -20,8 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('task_statuses', StatusController::class)->except(['show']);
+Route::resource('task_statuses', StatusController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 Route::resource('tasks', TaskController::class);
-Route::resource('labels', LabelController::class)->except(['show']);
+Route::resource('labels', LabelController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
 require __DIR__ . '/auth.php';

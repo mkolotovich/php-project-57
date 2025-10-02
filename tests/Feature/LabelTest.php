@@ -45,7 +45,7 @@ class LabelTest extends TestCase
         $user = User::factory()->create();
         $request = $this->actingAs($user)->post(route('labels.store'), ['name' => 'bug']);
         $request->assertSessionHasNoErrors();
-        $label = Label::paginate()->first();
+        $label = Label::first();
         $response = $this->actingAs($user)->get(route('labels.edit', $label->id));
         $response->assertStatus(200);
     }
@@ -56,7 +56,7 @@ class LabelTest extends TestCase
         $user = User::factory()->create();
         $request = $this->actingAs($user)->post(route('labels.store'), ['name' => 'bug']);
         $request->assertSessionHasNoErrors();
-        $label = Label::paginate()->first();
+        $label = Label::first();
         $response = $this->patch(route('labels.update', $label), ['name' => $updatedLabel]);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
@@ -67,10 +67,10 @@ class LabelTest extends TestCase
     {
         $user = User::factory()->create();
         $request = $this->actingAs($user)->post(route('labels.store'), ['name' => 'bug']);
-        $label = Label::paginate()->first();
+        $label = Label::first();
         $response = $this->delete(route('labels.destroy', $label->id));
         $response->assertStatus(302);
-        $removedLabel = Label::where('id', 1)->first();
+        $removedLabel = Label::first();
         $this->assertNull($removedLabel);
     }
 }
